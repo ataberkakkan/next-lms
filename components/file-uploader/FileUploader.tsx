@@ -25,7 +25,12 @@ interface UploaderState {
   fileType: "image" | "video";
 }
 
-const FileUploader = () => {
+interface FileUploaderProps {
+  value?: string;
+  onChange?: (value: string) => void;
+}
+
+const FileUploader = ({ value, onChange }: FileUploaderProps) => {
   const [fileState, setFileState] = useState<UploaderState>({
     error: false,
     file: null,
@@ -34,6 +39,7 @@ const FileUploader = () => {
     progress: 0,
     isDeleting: false,
     fileType: "image",
+    key: value,
   });
 
   const uploadFile = async (file: File) => {
@@ -92,6 +98,8 @@ const FileUploader = () => {
               uploading: false,
               key: key,
             }));
+
+            onChange?.(key);
 
             toast.success("File uploaded successfully.");
 
@@ -176,6 +184,8 @@ const FileUploader = () => {
       if (fileState.objectUrl && !fileState.objectUrl.startsWith("http")) {
         URL.revokeObjectURL(fileState.objectUrl);
       }
+
+      onChange?.("");
 
       setFileState({
         error: false,
