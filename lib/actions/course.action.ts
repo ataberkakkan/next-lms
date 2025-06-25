@@ -3,17 +3,14 @@
 import { courseSchema, CourseSchemaType } from "@/lib/schemas";
 import { prisma } from "@/lib/prisma";
 import { ApiResponse } from "@/lib/types";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { requireAdmin } from "@/app/data/admin/require-admin";
 
 export async function createCourse(
   values: CourseSchemaType
 ): Promise<ApiResponse> {
-  try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+  const session = await requireAdmin();
 
+  try {
     const validation = courseSchema.safeParse(values);
 
     if (!validation.success) {
