@@ -1,4 +1,5 @@
 import { getAdminCourse } from "@/app/data/admin/get-admin-course";
+import CourseStructure from "@/components/forms/CourseStructure";
 import EditCourseForm from "@/components/forms/EditCourseForm";
 import {
   Card,
@@ -45,7 +46,20 @@ export default async function EditCourse({
           </Card>
         </TabsContent>
 
-        <TabsContent value="course-structure"></TabsContent>
+        <TabsContent value="course-structure">
+          <Card>
+            <CardHeader>
+              <CardTitle>Course Structure</CardTitle>
+              <CardDescription>
+                Here you can update your course structure
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <CourseStructure course={data} />
+            </CardContent>
+          </Card>
+        </TabsContent>
       </Tabs>
     </div>
   );
