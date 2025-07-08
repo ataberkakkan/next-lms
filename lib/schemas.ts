@@ -48,7 +48,12 @@ export const courseSchema = z.object({
   }),
 });
 
-export type CourseSchemaType = z.infer<typeof courseSchema>;
+export const chapterSchema = z.object({
+  name: z
+    .string()
+    .min(3, { message: "Chapter Title should be at least 3 characters" }),
+  courseId: z.string().uuid({ message: "Invalid Course ID" }),
+});
 
 export const fileUploadSchema = z.object({
   fileName: z.string().min(1, { message: "Filename is required." }),
@@ -56,3 +61,6 @@ export const fileUploadSchema = z.object({
   size: z.number().min(1, { message: "Size is required." }),
   isImage: z.boolean(),
 });
+
+export type CourseSchemaType = z.infer<typeof courseSchema>;
+export type ChapterSchemaType = z.infer<typeof chapterSchema>;

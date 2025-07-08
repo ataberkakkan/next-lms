@@ -38,6 +38,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { toast } from "sonner";
 import { reorderChapters, reorderLessons } from "@/lib/actions/course.action";
+import NewChapter from "@/components/forms/NewChapter";
 
 interface CourseStructureProps {
   course: AdminCourseSingularType;
@@ -299,6 +300,7 @@ const CourseStructure = ({ course }: CourseStructureProps) => {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between border-b border-border">
           <CardTitle>Chapters</CardTitle>
+          <NewChapter courseId={course.id} />
         </CardHeader>
 
         <CardContent className="space-y-8">
