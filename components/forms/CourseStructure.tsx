@@ -39,6 +39,8 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { reorderChapters, reorderLessons } from "@/lib/actions/course.action";
 import NewChapter from "@/components/forms/NewChapter";
+import NewLesson from "./NewLesson";
+import DeleteLesson from "@/components/DeleteLesson";
 
 interface CourseStructureProps {
   course: AdminCourseSingularType;
@@ -380,18 +382,21 @@ const CourseStructure = ({ course }: CourseStructureProps) => {
                                       </Link>
                                     </div>
 
-                                    <Button variant="outline" size="icon">
-                                      <Trash2 className="size-4" />
-                                    </Button>
+                                    <DeleteLesson
+                                      courseId={course.id}
+                                      chapterId={item.id}
+                                      lessonId={lesson.id}
+                                    />
                                   </div>
                                 )}
                               </SortableItem>
                             ))}
                           </SortableContext>
                           <div className="p-2 ">
-                            <Button variant="outline" className="w-full">
-                              Create New Lesson
-                            </Button>
+                            <NewLesson
+                              courseId={course.id}
+                              chapterId={item.id}
+                            />
                           </div>
                         </div>
                       </CollapsibleContent>
