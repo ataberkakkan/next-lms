@@ -61,6 +61,10 @@ const NewLesson = ({
   }
 
   const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      form.reset();
+    }
+
     setIsOpen(open);
   };
 
