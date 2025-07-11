@@ -28,6 +28,7 @@ export async function getAdminCourse(courseId: string) {
           title: true,
           position: true,
           lessons: {
+            orderBy: { position: "asc" },
             select: {
               id: true,
               title: true,

@@ -110,9 +110,9 @@ export default function CreateCoursePage() {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Course Title" {...field} />
+                      <Input placeholder="Lesson Name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -191,6 +191,7 @@ export default function CreateCoursePage() {
                       <FileUploader
                         value={field.value}
                         onChange={field.onChange}
+                        fileTypeAccepted="image"
                       />
                     </FormControl>
                     <FormMessage />
