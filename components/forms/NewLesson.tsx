@@ -109,7 +109,7 @@ const NewLesson = ({
                     Saving...
                   </>
                 ) : (
-                  "Save Chages"
+                  "Save Changes"
                 )}
               </Button>
             </DialogFooter>
