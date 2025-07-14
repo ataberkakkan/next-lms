@@ -85,6 +85,30 @@ export async function editCourse(
   }
 }
 
+export async function deleteCourse(courseId: string): Promise<ApiResponse> {
+  await requireAdmin();
+
+  try {
+    await prisma.course.delete({
+      where: {
+        id: courseId,
+      },
+    });
+
+    revalidatePath("/admin/courses");
+
+    return {
+      status: "success",
+      message: "Course deleted successfully.",
+    };
+  } catch {
+    return {
+      status: "error",
+      message: "Failed to delete course.",
+    };
+  }
+}
+
 export async function reorderLessons(
   chapterId: string,
   lessons: { id: string; position: number }[],
