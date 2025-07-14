@@ -43,9 +43,12 @@ import { createCourse } from "@/lib/actions/course.action";
 import { toast } from "sonner";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useConfetti } from "@/hooks/use-confetti";
 
 export default function CreateCoursePage() {
   const router = useRouter();
+
+  const { triggerConfetti } = useConfetti();
 
   const [isPending, startTransition] = useTransition();
 
@@ -73,6 +76,7 @@ export default function CreateCoursePage() {
         toast.error(result.message || "Something went wrong.");
       } else {
         toast.success(result.message || "Course Created Successfully!");
+        triggerConfetti();
         form.reset();
         router.push("/admin/courses");
       }
