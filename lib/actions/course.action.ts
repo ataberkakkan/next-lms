@@ -12,6 +12,7 @@ import { prisma } from "@/lib/prisma";
 import { ApiResponse } from "@/lib/types";
 import { requireAdmin } from "@/app/data/admin/require-admin";
 import { revalidatePath } from "next/cache";
+import { stripe } from "@/lib/stripe";
 
 export async function createCourse(
   values: CourseSchemaType
@@ -28,10 +29,23 @@ export async function createCourse(
       };
     }
 
+    const data = await stripe.products.create({
+      name: validation.data.title,
+      description: validation.data.smallDescription,
+      images: [
+        `https://${process.env.NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES}.fly.storage.tigris.dev/${validation.data.fileKey}`,
+      ],
+      default_price_data: {
+        currency: "usd",
+        unit_amount: validation.data.price * 100,
+      },
+    });
+
     await prisma.course.create({
       data: {
         ...validation.data,
         userId: session?.user.id as string,
+        stripePriceId: data.default_price as string,
       },
     });
 
@@ -39,7 +53,8 @@ export async function createCourse(
       status: "success",
       message: "Course created successfully",
     };
-  } catch {
+  } catch (error) {
+    console.log(error);
     return {
       status: "error",
       message: "Something went wrong.",

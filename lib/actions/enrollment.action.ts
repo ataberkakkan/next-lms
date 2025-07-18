@@ -47,6 +47,7 @@ export async function enrollInCourse(
         price: true,
         slug: true,
         fileKey: true,
+        stripePriceId: true,
       },
     });
 
@@ -139,16 +140,7 @@ export async function enrollInCourse(
         customer: stripeCustomerId,
         line_items: [
           {
-            price_data: {
-              currency: "usd",
-              product_data: {
-                name: course.title,
-                images: [
-                  `https://${process.env.NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES}.fly.storage.tigris.dev/${course.fileKey}`,
-                ],
-              },
-              unit_amount: course.price * 100,
-            },
+            price: course.stripePriceId,
             quantity: 1,
           },
         ],

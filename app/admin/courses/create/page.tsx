@@ -116,7 +116,7 @@ export default function CreateCoursePage() {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Lesson Name" {...field} />
+                      <Input placeholder="Course Name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
