@@ -264,7 +264,7 @@ export default async function CourseDetails({ params }: { params: Params }) {
 
               {isEnrolled ? (
                 <Link
-                  href="/"
+                  href={`/dashboard/${slug}`}
                   className={buttonVariants({
                     className: "w-full",
                   })}

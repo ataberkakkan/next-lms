@@ -1,14 +1,24 @@
+"use client";
+
 import { LessonContentType } from "@/app/data/course/get-lesson-content";
 import RenderContent from "@/components/rich-text-editor/RenderContent";
 import { Button } from "@/components/ui/button";
+import { useConfetti } from "@/hooks/use-confetti";
 import { useConstructUrl } from "@/hooks/use-construct-url";
+import { markLessonComplete } from "@/lib/actions/progress.action";
 import { BookIcon, CheckCircle } from "lucide-react";
+import { useTransition } from "react";
+import { toast } from "sonner";
 
 interface CourseContentProps {
   data: LessonContentType;
 }
 
 const CourseContent = ({ data }: CourseContentProps) => {
+  const [isPending, startTransition] = useTransition();
+
+  const { triggerConfetti } = useConfetti();
+
   function VideoPlayer({
     thumbnailKey,
     videoKey,
@@ -45,6 +55,22 @@ const CourseContent = ({ data }: CourseContentProps) => {
     );
   }
 
+  const handleComplete = () => {
+    startTransition(async () => {
+      const result = await markLessonComplete(
+        data.id,
+        data.Chapter.Course.slug
+      );
+
+      if (result.status === "error") {
+        toast.error(result.message || "Something went wrong.");
+      } else {
+        toast.success(result.message || "Lesson Completed");
+        triggerConfetti();
+      }
+    });
+  };
+
   return (
     <div className="flex flex-col h-full bg-background pl-6">
       <VideoPlayer
@@ -53,10 +79,24 @@ const CourseContent = ({ data }: CourseContentProps) => {
       />
 
       <div className="py-4 border-b">
-        <Button variant="outline">
-          <CheckCircle className="size-4 mr-1 text-green-500" />
-          Mark As Complete
-        </Button>
+        {data.lessonProgress.length > 0 ? (
+          <Button
+            variant="outline"
+            className="bg-green-500/10 text-green-500 hover:text-green-600"
+          >
+            <CheckCircle className="size-4 mr-1 text-green-500" />
+            Completed
+          </Button>
+        ) : (
+          <Button
+            variant="outline"
+            onClick={handleComplete}
+            disabled={isPending}
+          >
+            <CheckCircle className="size-4 mr-1 text-green-500" />
+            Mark As Complete
+          </Button>
+        )}
       </div>
 
       <div className="space-y-3 pt-3">
