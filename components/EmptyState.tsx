@@ -1,4 +1,4 @@
-import { Ban, PlusCircle } from "lucide-react";
+import { Ban } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 
@@ -28,7 +28,6 @@ const EmptyState = ({
       </p>
 
       <Link href={href} className={buttonVariants()}>
-        <PlusCircle className="size-4" />
         {buttonText}
       </Link>
     </div>
