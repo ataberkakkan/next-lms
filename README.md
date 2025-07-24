@@ -5,6 +5,7 @@
     <img src="https://img.shields.io/badge/-Better_Auth-black?style=for-the-badge&logoColor=white&logo=better-auth&color=000" alt="better-auth" />
     <img src="https://img.shields.io/badge/-S3_Tigris-black?style=for-the-badge&logoColor=white&logo=amazonaws&color=569A31" alt="s3-tigris" />
     <img src="https://img.shields.io/badge/-Resend-black?style=for-the-badge&logoColor=white&color=000" alt="resend" />
+    <img src="https://img.shields.io/badge/-Arcjet-black?style=for-the-badge&logo=arcjet&logoColor=white&color=5C3BFE" alt="arcjet" />
   </div>
 
   <h3 align="center">Learning Management System</h3>
@@ -34,10 +35,13 @@ Using **Better-Auth** for authentication, **Resend** for transactional emails, a
 - React Hook Form
 - Zod
 - Prisma ORM
+- Arcjet (Security & Rate Limiting)
 
 ## <a name="features">🚀 Features</a>
 
 👉 **Authentication**: Secure login with Better-Auth, using email-based flows and social providers.
+
+👉 **Arcjet Security**: Protects critical routes like authentication and payments from abuse using rate limiting and bot detection.
 
 👉 **Course Creation**: Instructors can create, edit, and publish rich course content including video, text, and images.
 
